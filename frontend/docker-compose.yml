@@ -1,0 +1,28 @@
+version: '2'
+services:
+  web:
+    container_name: "tmb_frontend"
+    image: frontend:1.0
+    build:
+        context: .
+        dockerfile: ./Dockerfile
+    command: npm start
+    volumes:
+      - .:/code
+      - node_modules:/code/node_modules
+    ports:
+      - 4200:4200
+    stdin_open: true
+    tty: true
+    environment:
+      - WATCHPACK_POLLING=true
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8000M
+        reservations:
+          cpus: '1.25'
+          memory: 150M
+volumes:
+  node_modules:
